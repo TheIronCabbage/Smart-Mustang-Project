@@ -9,7 +9,7 @@ export default function App() {
     const ws = new WebSocket("ws://localhost:6789/");
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      setRpm(data.rpm);
+      setRpm(data);
       setSpeed(data.speed);
     };
     return () => ws.close();
@@ -19,7 +19,28 @@ export default function App() {
     <div style={{ display: "flex", gap: "50px", padding: "50px" }}>
       <div>
         <h2>RPM</h2>
-        <GaugeComponent id="rpm-gauge" nrOfLevels={30} percent={rpm / 7000} />
+        <GaugeComponent 
+          id="rpm-gauge" 
+          value={rpm} 
+          minValue={0} 
+          maxValue={6000}
+          arc={{
+            subArcs: [
+              { limit: 4500, color: '#5BE12C', glow: true},
+              { color: '#EA4228' }
+            ],
+            effects:[
+              {
+                glow: true,
+                glowColor: "green",
+                glowSpread: 3
+              }
+            ]
+          }}
+          pointer={{
+            type: "needle"
+          }}
+        />
       </div>
       <div>
         <h2>Speed</h2>

@@ -5,12 +5,11 @@ import asyncio
 
 engine = EngineSim(900,0)
 
-async def send_data(websocket, path):
+async def send_data(websocket):
     while True:
-        engine.update_rpm()  # update RPM/speed
-        state = engine.get_rpm()  # e.g., {"rpm": 3200, "speed": 35.4}
+        state = engine.update_rpm()  # update RPM/speed
         await websocket.send(json.dumps(state))
-        await asyncio.sleep(0.05)  # 20 Hz updates
+        await asyncio.sleep(0.1)  # 20 Hz updates
 
 async def main():
     async with websockets.serve(send_data, "localhost", 6789):

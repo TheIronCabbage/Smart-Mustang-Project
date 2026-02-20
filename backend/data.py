@@ -1,3 +1,4 @@
+import math
 import time
 
 class Data:
@@ -29,46 +30,36 @@ class EngineSim:
     # update rpms
     def update_rpm(self):
         if self.gear == 1:
-            print("gear 1")
-            while self.rpm < 2500:
-                # possible rpm simulation
-                self.rpm += (6000 - self.rpm) * 0.05
-            self.gear += 1
+            self.rpm += round((6000 - self.rpm) * 0.05)
+            if self.rpm >= 2500:
+                self.rpm = round(self.rpm * 0.7)
+                self.gear = 2
         elif self.gear == 2:
-            print("gear 2")
-            # rpm drop after gear shift
-            self.rpm *= 0.5
-            while self.rpm < 3200:
-                self.rpm += (6000 - self.rpm) * 0.05
-            self.gear += 1
+            self.rpm += round((6000 - self.rpm) * 0.05)
+            if self.rpm >= 3000:
+                self.rpm = round(self.rpm * 0.7)
+                self.gear = 3
         elif self.gear == 3:
-            print("gear 3")
-            # rpm drop after gear shift
-            self.rpm *= 0.5
-            while self.rpm < 3500:
-                self.rpm += (6000 - self.rpm) * 0.05
-            self.gear += 1
+            self.rpm += round((6000 - self.rpm) * 0.05)
+            if self.rpm >= 3300:
+                self.rpm = round(self.rpm * 0.7)
+                self.gear = 4
         elif self.gear == 4:
-            print("gear 4")
-            # rpm drop after gear shift
-            self.rpm *= 0.5
-            while self.rpm < 4000:
-                self.rpm += (6000 - self.rpm) * 0.05
-            self.gear += 1
+            self.rpm += round((6000 - self.rpm) * 0.05)
+            if self.rpm >= 3500:
+                self.rpm = round(self.rpm * 0.7)
+                self.gear = 5
         elif self.gear == 5:
-            print(self.rpm)
-            # rpm drop after gear shift
-            self.rpm *= 0.5
-            print(self.rpm)
-            while self.rpm < 4200:
-                self.rpm += (6000 - self.rpm) * 0.05
-            self.gear += 1
-            
+            self.rpm += round((6000 - self.rpm) * 0.05)
+            if self.rpm >= 5000:
+                self.rpm = round(self.rpm * 0.7)
+                self.gear = 6
         else:
             self.rpm = 900
             self.gear = 1
         
-        return self.get_rpm()
+        
+        return self.rpm
             
         
         

@@ -2,7 +2,11 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import random
+from backend.data import Data, EngineSim
 
+
+
+test = EngineSim(900,0)
 app = Dash(__name__)
 
 app.layout = html.Div([
@@ -28,10 +32,11 @@ app.layout = html.Div([
     Input("interval", "n_intervals")
 )
 
+
 def update_rpm(n):
     # fake random rpm values
-    rpm = random.randint(700, 5000)
-
+    # rpm = random.randint(700, 5000)
+    rpm = test.update_rpm()
     # create rpm gauge
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
